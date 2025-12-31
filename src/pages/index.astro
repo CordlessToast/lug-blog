@@ -40,15 +40,39 @@ const posts = (await getCollection('blog')).sort(
 				text-align: center;
 			}
 			ul li:first-child img {
-				width: 100%;
+				width: 90%;
+                margin: 1rem;
 			}
+            ul li:first-child .card {
+                display: flex;
+                flex-direction: row;
+                /* justify-content: space-around; */
+                /* align-items:center ; */
+                min-height: 10rem;
+            }
+            ul li:first-child .img {
+                width: 50%;
+                display: flex;
+                /* justify-content: center; */
+                /* align-items: center; */
+            }
+            ul li:first-child .content-text {
+                display: flex;
+                flex-direction: column;
+                align-items: start;
+                margin: 1rem;
+                min-width: 70%;
+            }
+            ul li .card {
+                box-shadow: 10px 10px 0px 0px rgb(var(--black));
+                background-color: var(--gray);
+            }
 			ul li:first-child .title {
 				font-size: 2.369rem;
 			}
 			ul li img {
 				margin-bottom: 0.5rem;
 				border-radius: 0px;
-                box-shadow: 10px 10px 0px 0px rgba(0,0,0,1);
 			}
 			ul li a {
 				display: block;
@@ -58,6 +82,9 @@ const posts = (await getCollection('blog')).sort(
 				color: rgb(var(--black));
 				line-height: 1;
 			}
+            .description {
+                color: rgb(var(--black));
+            }
 			.date {
 				margin: 0;
 				color: rgb(var(--gray));
@@ -67,9 +94,10 @@ const posts = (await getCollection('blog')).sort(
 				color: rgb(var(--accent));
 			}
 			ul a:hover img {
-                scale: 1.05;
-
 			}
+            ul li .card:hover {
+                scale: 1.05;
+            }
 			@media (max-width: 720px) {
 				ul {
 					gap: 0.5em;
@@ -93,20 +121,26 @@ const posts = (await getCollection('blog')).sort(
 			<section>
                 <h2>The LUGVITC Blog</h2>
                 <p>The official Blogsite of LUGVITC and probably the most coolest one in the VIT.</p>
-                <h3>Latest blogs</h3>
+                <h3>The latest blogs</h3>
 				<ul>
 					{
 						posts.map((post) => (
 							<li>
 								<a href={`/${post.id}/`}>
-                                    <div>
+                                    <div class="card">
+                                        <div class="img">
 									{post.data.heroImage && (
 										<Image width={720} height={360} src={post.data.heroImage} alt="" />
 									)}
+                                        </div>
+                                        <div class="content-text">
+
 									<h4 class="title">{post.data.title}</h4>
+                                    <p class="description">{post.data.description}</p>
 									<p class="date">
 										<FormattedDate date={post.data.pubDate} />
-									</p>
+                                    </p>
+                                        </div>
                                     </div>
 								</a>
 							</li>
