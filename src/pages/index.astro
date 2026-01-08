@@ -11,6 +11,7 @@ const posts = (await getCollection('blog')).sort(
 );
 const [latestPost, ...otherPosts] = posts;
 ---
+<BlogPost>
 
 <!doctype html>
 <html lang="en">
