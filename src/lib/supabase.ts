@@ -1,16 +1,20 @@
 import { createClient } from "@supabase/supabase-js";
 import type { Database } from "./database.types.ts";
-import type { CredentialResponse } from "google-one-tap";
 
 const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
 export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey);
 
-export async function handleSignInWithGoogle(response: CredentialResponse) {
-  const { data, error } = await supabase.auth.signInWithIdToken({
+export async function handleSignInWithGoogle() {
+    const { error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
-    token: response.credential,
-  })
+    options: {
+        redirectTo: `${window.location.href}`,
+        skipBrowserRedirect: false,
+    }
+    })
+
+    if (error) console.error('Error signing in with Google:', error);
 }
 
 export async function handleSignOut() {
@@ -64,6 +68,8 @@ export async function createComment(post_slug: string, content: string) {
         console.error('Error creating comment:', error);
         return null;
     }
+    const comment_box = document.querySelector('.comment-box') as HTMLTextAreaElement;
+    comment_box.value = '';
     location.reload();
     return data;
 }
