@@ -1,13 +1,9 @@
-<script src="https://accounts.google.com/gsi/client" async></script>
 <script>
   import { initComments } from '../lib/comments.ts';
-  function setupComments() {
-    initComments();
-  }
-  
-  setupComments();
-  
-  document.addEventListener('astro:after-swap', setupComments);
+
+  initComments();
+
+  document.addEventListener('astro:after-swap', initComments);
 </script>
 
 <section class="comments-section">
