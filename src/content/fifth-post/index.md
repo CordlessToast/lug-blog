@@ -1,5 +1,6 @@
 ---
 title: Third post
+author: Test-User
 description: Lorem ipsum dolor sit amet
 heroImage: ./blog-placeholder-4.jpg
 authorImage: 'https://avatars.githubusercontent.com/u/87632612'
